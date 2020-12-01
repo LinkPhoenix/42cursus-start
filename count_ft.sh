@@ -97,12 +97,27 @@ get_ft() {
 	done
 }
 
+get_static() {
+	TYPE_VAR_STATIC=("static")
+
+	TOTAL=${#TYPE_VAR_STATIC[*]}
+
+	for (( i=0; i<=$(( $TOTAL -1 )); i++ ))
+	do 
+		cat *.c 2>/dev/null | grep "^${TYPE_VAR_STATIC[$i]}.*[)]$" 2>/dev/null
+	done
+}
+
 main() {
 	setup_color
-	result=$(get_ft | wc -l | tr -d ' ')
 	SOURCE_CODE=$(find . -name "*.c" | wc -l | tr -d ' ')
+	FT_NO_STATIC=$(get_ft | wc -l | tr -d ' ')
+	FT_STATIC=$(get_static | wc -l | tr -d ' ')
+	TOTAL=$(($FT_STATIC + $FT_NO_STATIC))
 	echo "I found ${YELLOW}${SOURCE_CODE}${RESET} .c file(s)"
-	echo "You have ${YELLOW}${result}${RESET} fonction(s)"
+	echo "You have ${YELLOW}${FT_NO_STATIC}${RESET} function(s) NO STATIC"
+	echo "You have ${YELLOW}${FT_STATIC}${RESET} function(s) STATIC"
+	echo "You have ${YELLOW}${TOTAL}${RESET} function(s)"
 }
 
 main
