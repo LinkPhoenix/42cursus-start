@@ -14,7 +14,7 @@ get_ft() {
 
 	for (( i=0; i<=$(( $TOTAL -1 )); i++ ))
 	do 
-		cat *.c | grep "^${TYPE_VAR[$i]}\t.*[)]$" | sed s'/.$/);/'
+		cat *.c | grep "^${TYPE_VAR[$i]}\t.*[)]$"
 	done
 
 	TYPE_VAR_STRUCT=("size_t" "t_list")
@@ -23,12 +23,13 @@ get_ft() {
 
 	for (( i=0; i<=$(( $TOTAL -1 )); i++ ))
 	do 
-		cat *.c | grep "^${TYPE_VAR_STRUCT[$i]}\t.*[)]$" | sed s'/.$/);/'
+		cat *.c | grep "^${TYPE_VAR_STRUCT[$i]}\t.*[)]$"
 	done
 }
 
 main() {
-	get_ft | wc -l | tr -d ' '
+	result=$(get_ft | wc -l | tr -d ' ')
+	echo "You have : ${result} fonction(s)"
 }
 
 main
