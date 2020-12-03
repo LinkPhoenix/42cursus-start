@@ -104,7 +104,7 @@ get_static() {
 
 	for (( i=0; i<=$(( $TOTAL -1 )); i++ ))
 	do 
-		cat *.c 2>/dev/null | grep "^${TYPE_VAR_STATIC[$i]}.*[)\n]$" 2>/dev/null
+		cat *.c 2>/dev/null | grep "^${TYPE_VAR_STATIC[$i]}.*[)\\n]$" 2>/dev/null
 	done
 }
 
